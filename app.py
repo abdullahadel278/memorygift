@@ -1,21 +1,22 @@
+```python
 from flask import Flask, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 
 import secrets
-import os
 import qrcode
-
 import cloudinary
 import cloudinary.uploader
 
 app = Flask(__name__)
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+# DATABASE
+
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://neondb_owner:npg_JqN1G9WfseCr@ep-spring-bar-apafis1w.c-7.us-east-1.aws.neon.tech/neondb?sslmode=require"
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
@@ -233,19 +234,6 @@ def create():
 
         db.session.commit()
 
-        # QR
-
-        qr = qrcode.make(
-            f"https://abdullahadel.pythonanywhere.com/m/{slug}"
-        )
-
-        qr.save(
-            os.path.join(
-                BASE_DIR,
-                f"static/qrcodes/{slug}.png"
-            )
-        )
-
         return redirect('/dashboard')
 
     return render_template('create.html')
@@ -304,8 +292,15 @@ def logout():
 
     return redirect('/')
 
+# CREATE DATABASE
+
+with app.app_context():
+
+    db.create_all()
+
 # RUN
 
 if __name__ == '__main__':
 
     app.run(debug=True)
+```

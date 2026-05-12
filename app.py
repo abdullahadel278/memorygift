@@ -15,7 +15,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 app.config['SECRET_KEY'] = secrets.token_hex(16)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
 db = SQLAlchemy(app)
 

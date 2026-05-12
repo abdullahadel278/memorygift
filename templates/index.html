@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Memory Gift</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 0;
+
+}
+
+.nav-links a{
+
+color:white;
+text-decoration:none;
+margin-left:20px;
+
+}
+
+.hero{
+
+text-align:center;
+margin-top:80px;
+
+}
+
+.hero h1{
+
+font-size:70px;
+
+}
+
+.hero p{
+
+color:#999;
+font-size:22px;
+
+}
+
+.projects{
+
+margin-top:80px;
+
+}
+
+.project-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+margin-top:40px;
+
+}
+
+.project-card{
+
+background:#171717;
+padding:20px;
+border-radius:25px;
+transition:0.4s;
+
+}
+
+.project-card:hover{
+
+transform:translateY(-10px);
+
+}
+
+.project-card img{
+
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:20px;
+
+}
+
+.project-card h2{
+
+margin-top:20px;
+
+}
+
+.project-card p{
+
+color:#aaa;
+
+}
+
+.action-btn{
+
+display:inline-block;
+margin-top:20px;
+padding:12px 20px;
+background:#8c52ff;
+border-radius:15px;
+color:white;
+text-decoration:none;
+
+}
+
+.auth-box{
+
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:50px;
+
+}
+
+.auth-card{
+
+background:#171717;
+padding:40px;
+border-radius:25px;
+width:300px;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="topbar">
+
+<h2>
+Memory Gift 🎉
+</h2>
+
+<div class="nav-links">
+
+{% if session.get('user_id') %}
+
+<a href="/create">
+Create
+</a>
+
+<a href="/dashboard">
+Dashboard
+</a>
+
+<a href="/logout">
+Logout
+</a>
+
+{% else %}
+
+<a href="/login">
+Login
+</a>
+
+<a href="/register">
+Register
+</a>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<div class="hero">
+
+<h1>
+Memory Gift 🎉
+</h1>
+
+<p>
+
+Create beautiful memories for people you love.
+
+</p>
+
+</div>
+
+{% if not session.get('user_id') %}
+
+<div class="auth-box">
+
+<div class="auth-card">
+
+<h2>
+Login
+</h2>
+
+<p style="color:#aaa;">
+
+Access your memories.
+
+</p>
+
+<br>
+
+<a href="/login" class="btn">
+
+Login
+
+</a>
+
+</div>
+
+<div class="auth-card">
+
+<h2>
+Register
+</h2>
+
+<p style="color:#aaa;">
+
+Create your account.
+
+</p>
+
+<br>
+
+<a href="/register" class="btn">
+
+Register
+
+</a>
+
+</div>
+
+</div>
+
+{% else %}
+
+<div class="projects">
+
+<h1>
+My Projects 🎉
+</h1>
+
+<div class="project-grid">
+
+{% for project in projects %}
+
+<div class="project-card">
+
+<img
+src="{{ url_for('static', filename='uploads/' + project.image.split(',')[0]) }}"
+>
+
+<h2>
+{{ project.person_name }}
+</h2>
+
+<p>
+{{ project.event_date }}
+</p>
+
+<a
+href="/m/{{ project.slug }}"
+class="action-btn"
+>
+
+Open Memory
+
+</a>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>

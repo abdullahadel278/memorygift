@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Create Memory</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+body{
+
+background:#0f0f0f;
+color:white;
+font-family:Arial;
+
+}
+
+.form-box{
+
+background:#171717;
+padding:40px;
+border-radius:30px;
+margin-top:50px;
+max-width:700px;
+margin:auto;
+
+}
+
+input,
+textarea,
+select{
+
+width:100%;
+padding:18px;
+border:none;
+border-radius:15px;
+margin-bottom:20px;
+background:#101010;
+color:white;
+font-size:16px;
+box-sizing:border-box;
+
+}
+
+textarea{
+
+height:200px;
+resize:none;
+
+}
+
+.file-box{
+
+background:#101010;
+padding:20px;
+border-radius:20px;
+margin-bottom:20px;
+
+}
+
+.preview{
+
+margin-top:30px;
+padding:20px;
+border-radius:25px;
+text-align:center;
+transition:0.5s;
+
+}
+
+.theme-dark{
+
+background:#0f0f0f;
+
+}
+
+.theme-birthday{
+
+background:
+linear-gradient(
+135deg,
+#ff4fd8,
+#7a5cff
+);
+
+}
+
+.theme-scrapbook{
+
+background:#d8c3a5;
+color:#2d1f16;
+
+}
+
+.theme-wedding{
+
+background:
+linear-gradient(
+135deg,
+#ffffff,
+#f2d6b3
+);
+
+color:#111;
+
+}
+
+.theme-galaxy{
+
+background:
+linear-gradient(
+135deg,
+#050816,
+#1a1f4f
+);
+
+}
+
+.theme-memorial{
+
+background:
+linear-gradient(
+135deg,
+#111,
+#3a2c2c
+);
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="form-box">
+
+<h1>
+Create Memory
+</h1>
+
+<p style="color:#aaa;">
+Create a cinematic memory page.
+</p>
+
+<br>
+
+<form method="POST" enctype="multipart/form-data">
+
+<input
+type="text"
+name="title"
+placeholder="Memory Title ✍️"
+required
+>
+
+<input
+type="text"
+name="person_name"
+placeholder="Person Name"
+required
+>
+
+<textarea
+name="caption"
+placeholder="Write your memory..."
+required
+></textarea>
+
+<input
+type="date"
+name="event_date"
+required
+>
+
+<select
+name="theme"
+id="themeSelect"
+onchange="changePreview()"
+>
+
+<option value="dark">
+Dark
+</option>
+
+<option value="birthday">
+Birthday
+</option>
+
+<option value="scrapbook">
+Scrapbook
+</option>
+
+<option value="wedding">
+Wedding
+</option>
+
+<option value="galaxy">
+Galaxy
+</option>
+
+<option value="memorial">
+Memorial
+</option>
+
+</select>
+
+<div class="preview theme-dark" id="preview">
+
+<h2>
+Theme Preview ✨
+</h2>
+
+<p>
+Your memory style preview.
+</p>
+
+</div>
+
+<br>
+
+<div class="file-box">
+
+<label>
+Upload Images (10+)
+</label>
+
+<br><br>
+
+<input
+type="file"
+name="images"
+multiple
+required
+>
+
+</div>
+
+<div class="file-box">
+
+<label>
+Upload Music
+</label>
+
+<br><br>
+
+<input
+type="file"
+name="music"
+required
+>
+
+</div>
+
+<button class="btn">
+
+Create Project
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+<script>
+
+function changePreview(){
+
+let value =
+document.getElementById("themeSelect").value
+
+let preview =
+document.getElementById("preview")
+
+preview.className =
+"preview theme-" + value
+
+}
+
+</script>
+
+</body>
+
+</html>

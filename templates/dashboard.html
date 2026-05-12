@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Dashboard</title>
+
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+<style>
+
+.topbar{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-top:30px;
+
+}
+
+.project-grid{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+margin-top:50px;
+
+}
+
+.project-card{
+
+background:#171717;
+padding:25px;
+border-radius:25px;
+
+}
+
+.project-card img{
+
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:20px;
+
+}
+
+.project-card h2{
+
+margin-top:20px;
+
+}
+
+.project-card p{
+
+color:#aaa;
+
+}
+
+.link-box{
+
+background:#101010;
+padding:12px;
+border-radius:15px;
+margin-top:15px;
+word-break:break-all;
+font-size:14px;
+color:#8c52ff;
+
+}
+
+.buttons{
+
+display:flex;
+gap:10px;
+margin-top:20px;
+
+}
+
+.action-btn{
+
+display:inline-block;
+padding:12px 20px;
+background:#8c52ff;
+color:white;
+text-decoration:none;
+border-radius:15px;
+border:none;
+cursor:pointer;
+
+}
+
+.delete-btn{
+
+background:#ff3b3b;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="topbar">
+
+<h1>
+My Projects 🎉
+</h1>
+
+<a href="/create" class="btn">
+
++ Create Memory
+
+</a>
+
+</div>
+
+<div class="project-grid">
+
+{% for project in projects %}
+
+<div class="project-card">
+
+<img
+src="{{ url_for('static', filename='uploads/' + project.image.split(',')[0]) }}"
+>
+
+<h2>
+{{ project.person_name }}
+</h2>
+
+<p>
+{{ project.event_date }}
+</p>
+
+<div class="link-box">
+
+https://abdullahadel.pythonanywhere.com/m/{{ project.slug }}
+
+</div>
+
+<div class="buttons">
+
+<a
+href="/m/{{ project.slug }}"
+target="_blank"
+class="action-btn"
+>
+
+Open Memory
+
+</a>
+
+<button
+class="action-btn delete-btn"
+onclick="deleteProject({{ project.id }})"
+>
+
+🗑️
+
+</button>
+
+</div>
+
+<br>
+
+<img
+src="{{ url_for('static', filename='qrcodes/' + project.slug + '.png') }}"
+style="
+width:150px;
+background:white;
+padding:10px;
+border-radius:20px;
+"
+>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+
+<script>
+
+function deleteProject(id){
+
+let confirmDelete = confirm(
+"هل تريد حذف البروجيكت نهائياً؟"
+)
+
+if(confirmDelete){
+
+window.location.href =
+"/delete/" + id
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
